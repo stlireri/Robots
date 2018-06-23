@@ -4,18 +4,22 @@ class RobotsController < ApplicationController
   end
 
   def create
-    @robot = Robot.new(robot_params)
+    @robot = Robot.new(robot params)
     if @robot.save
       flash[:sucess] = "you have successfully created a robot"
+      redirect_to @robot
     else
       flash[:danger] = "Opps!! An error creating your robot"
+      redirect_to 
     end
   end
 
-  def index
+  def show
+    @robot = Robot.find(params[:id])
   end
 
-  def show
+  def index
+    @robot = Robot.all
   end
 
   def edit
@@ -29,6 +33,6 @@ class RobotsController < ApplicationController
 
   private
   def robot params
-    params.reqiure(:Robot).permit(:name, :manufacturer, :ability, :version)
+    params.require(:robot).permit(:name, :manufacturer, :ability, :version)
   end
 end
